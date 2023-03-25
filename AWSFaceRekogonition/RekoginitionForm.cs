@@ -18,7 +18,6 @@ namespace AWSFaceRekogonition
 
         private VideoCapabilities[]? snapshotCapabilities;
 
-        private Stopwatch? stopwatch = null;
         private static bool needSnapshot = false;
 
         private static string? _camera;
@@ -111,7 +110,6 @@ namespace AWSFaceRekogonition
                 this.videoSourcePlayer.VideoSource = source;
                 this.videoSourcePlayer.Start();
 
-                stopwatch = null;
                 this.Cursor = Cursors.Default;
             }
             catch
@@ -155,8 +153,14 @@ namespace AWSFaceRekogonition
             try
             {
                 needSnapshot = false;
+                var prev = picBox.Image;
                 this.picBox.Image = image;
                 this.picBox.Update();
+
+                if (prev != null)
+                {
+                    prev.Dispose();
+                }
 
                 string imageName = Guid.NewGuid().ToString() + ".jpg";
                 string imagePath = Path.Combine(pathFolder, imageName);
@@ -171,11 +175,13 @@ namespace AWSFaceRekogonition
                 if (_rekoginition != null && _bucket != null)
                 {
                     await _rekoginition.UploadToBucketAsync(_bucket, imageName, File.Open(imagePath, FileMode.Open));
-                    var faces = await _rekoginition.GetFaces(_bucket, imagePath);
+                    var faces = await _rekoginition.GetFaces(_bucket, imageName);
+                    this.picBox.Image = Image.FromFile(imagePath);
+                    this.picBox.Update();
 
                     BoundFaces(faces);
 
-                    File.Delete(imagePath);
+                    //File.Delete(imagePath);
                 }
 
             }
@@ -187,13 +193,22 @@ namespace AWSFaceRekogonition
             foreach (var item in bounds)
             {
 
+                //double multiplyH = (double)this.picBox.Height / (double)this.picBox.Image.Height;
+                //double multiplyW = (double)this.picBox.Width / (double)this.picBox.Image.Width;
+
+                //int left = (int)(multiplyW * item.Left * this.picBox.Image.Width);
+                //int top = (int)(multiplyH * item.Top * this.picBox.Image.Height);
+                //int width = (int)(multiplyW * item.Width * this.picBox.Image.Width);
+                //int height = (int)(multiplyH * item.Height * this.picBox.Image.Height);
                 double multiplyH = (double)this.picBox.Height / (double)this.picBox.Image.Height;
                 double multiplyW = (double)this.picBox.Width / (double)this.picBox.Image.Width;
 
-                int left = (int)(multiplyW * item.Left * this.picBox.Image.Width);
-                int top = (int)(multiplyH * item.Top * this.picBox.Image.Height);
-                int width = (int)(multiplyW * item.Width * this.picBox.Image.Width);
-                int height = (int)(multiplyH * item.Height * this.picBox.Image.Height);
+                double multiply = multiplyH < multiplyW ? multiplyH : multiplyW;
+
+                int left = (int)((this.picBox.Width - this.picBox.Image.Width * multiply) / 2 + this.picBox.Image.Width * multiply * item.Left);
+                int top = (int)((this.picBox.Height - this.picBox.Image.Height * multiply) / 2 + this.picBox.Image.Height * multiply * item.Top);
+                int width = (int)(multiply * item.Width * this.picBox.Image.Width);
+                int height = (int)(multiply * item.Height * this.picBox.Image.Height);
 
                 this.picBox.CreateGraphics().DrawRectangle(new Pen(Brushes.Red, 4), new Rectangle(left, top, width, height));
             }
@@ -261,6 +276,11 @@ namespace AWSFaceRekogonition
 
                 }
             }
+        }
+
+        private void RekoginitionForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            CloseCurrentVideoSource();
         }
     }
 }
