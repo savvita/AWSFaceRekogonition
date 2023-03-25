@@ -5,6 +5,8 @@ VisualStudioVersion = 17.2.32602.215
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AWSFaceRekogonition", "AWSFaceRekogonition\AWSFaceRekogonition.csproj", "{FA28365F-4B17-44FA-9EEE-63F9740913BE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AWSFaceRekoginition.AWSAccess", "AWSFaceRekoginition.AWSAccess\AWSFaceRekoginition.AWSAccess.csproj", "{6761DC50-4FE1-42F4-BBA9-4578FC4E7829}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{FA28365F-4B17-44FA-9EEE-63F9740913BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA28365F-4B17-44FA-9EEE-63F9740913BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FA28365F-4B17-44FA-9EEE-63F9740913BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6761DC50-4FE1-42F4-BBA9-4578FC4E7829}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6761DC50-4FE1-42F4-BBA9-4578FC4E7829}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6761DC50-4FE1-42F4-BBA9-4578FC4E7829}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6761DC50-4FE1-42F4-BBA9-4578FC4E7829}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
