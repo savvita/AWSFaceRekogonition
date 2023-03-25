@@ -193,13 +193,6 @@ namespace AWSFaceRekogonition
             foreach (var item in bounds)
             {
 
-                //double multiplyH = (double)this.picBox.Height / (double)this.picBox.Image.Height;
-                //double multiplyW = (double)this.picBox.Width / (double)this.picBox.Image.Width;
-
-                //int left = (int)(multiplyW * item.Left * this.picBox.Image.Width);
-                //int top = (int)(multiplyH * item.Top * this.picBox.Image.Height);
-                //int width = (int)(multiplyW * item.Width * this.picBox.Image.Width);
-                //int height = (int)(multiplyH * item.Height * this.picBox.Image.Height);
                 double multiplyH = (double)this.picBox.Height / (double)this.picBox.Image.Height;
                 double multiplyW = (double)this.picBox.Width / (double)this.picBox.Image.Width;
 
