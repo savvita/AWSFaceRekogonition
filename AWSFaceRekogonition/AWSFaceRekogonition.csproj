@@ -12,6 +12,12 @@
     <PackageReference Include="AForge" Version="2.2.5" />
     <PackageReference Include="AForge.Controls" Version="2.2.5" />
     <PackageReference Include="AForge.Video" Version="2.2.5" />
+    <PackageReference Include="AForge.Video.DirectShow" Version="2.2.5" />
+    <PackageReference Include="AWSSDK.S3" Version="3.7.103.36" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AWSFaceRekoginition.AWSAccess\AWSFaceRekoginition.AWSAccess.csproj" />
   </ItemGroup>
 
 </Project>
